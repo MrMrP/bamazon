@@ -28,6 +28,6 @@ VALUES
 (100, "Bracelet", "Accessories", 10, 20);  
 
 CREATE VIEW [Current Product List] AS
-SELECT product_ii, product_name, price
+SELECT product_id, product_name, price
 FROM Products
 WHERE quantity > 0;
