@@ -2,7 +2,7 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
 
-//Setting up connecting to Mysql server and creatting connectiong to access database
+//Setting up connecting to Mysql server and creating connection to access database
 var connection = mysql.createConnection ({
     port: "",
     user: "root",
@@ -45,6 +45,7 @@ function placeOrder()
                 console.log("You've selected " + answer.product_id);
                 }
             }
+            idSearch()
         })
     });
 
@@ -65,17 +66,19 @@ function placeOrder()
 
         //Will check the inventory to see if the the current item is available for purchase. Will include an alert to say 'prodcut unavaialble' if quantity < 0
 
-        var query = "SELECT product_name FROM Products WHERE ? > 0";
-        connection.query(query, answer.product.id, {quantity:  answer.quantity}, function (err, res) {
+        var query = "SELECT product_name FROM Products WHERE quantity > 0";
+        connection.query(query, answer.product_id, {quantity:  answer.quantity}, function (err, res) {
             if (err){
                 console.log("The amount selected is currently unavailable. Please select again");
                 {
                 console.log("You've requested to purchase " + answer.quantity + answer.product_name);
                 }
-            }
-        })
-    })
-}
+            };
+            checkInventory();
+            fulfillOrder();
+        });
+    });
+};
 
 //Taking the answer from the selected product and how many of that item would like to be bought. Customer will then be told how their total Price. 
 function fulfillOrder(){

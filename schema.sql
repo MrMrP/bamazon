@@ -31,3 +31,5 @@ CREATE VIEW [Current Product List] AS
 SELECT product_id, product_name, price
 FROM Products
 WHERE quantity > 0;
+
+SELECT * FROM Products;
