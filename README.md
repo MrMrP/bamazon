@@ -1,7 +1,5 @@
-# bamazon
+# bAMAZON
 Amazon-like storefront with the MySQL database
-
-# Node.js & MySQL
 
 ## Technical Notes
 
