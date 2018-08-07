@@ -4,7 +4,8 @@ var inquirer = require('inquirer');
 
 //Setting up connecting to Mysql server and creating connection to access database
 var connection = mysql.createConnection ({
-    port: "",
+    host: "127.0.0.1",
+    port: 8889,
     user: "root",
     password: "root",
     database: "bamazonDB",
@@ -13,8 +14,9 @@ var connection = mysql.createConnection ({
 connection.connect(function(err) {
     if (err) {
         throw err};
-        availableItems()
-    // placeOrder();
+        availableItems();
+        // showItems();     
+        // placeOrder();
 });
 
 function availableItems(){
@@ -23,15 +25,15 @@ function availableItems(){
     .prompt({
         name: "availability",
         type: "confirm",
-        message: "Welcome to bAmazon. Woould you like to see what is currently available?",  
+        message: "Welcome to bAmazon. Would you like to see what is currently available?",  
         deafult: true 
         //Maybe add validation//
     })
-    .then(function (userResponse)
+    .then(function(answer)
     {
-        if(answer.availability === true){
+        if(answer.availability){
             showItems();
-            placeOrder();
+            // placeOrder();
         }
         else{
             console.log("Sorry we couldn't be of service. Come again soon!")
@@ -40,43 +42,65 @@ function availableItems(){
 }
 // Function to show the total product list to user once application has been run. ** Need to find a way to call on the view created in the schema.sql 
 function showItems(){
-    var query = "SELECT * FROM [Current Product List]";
-}
-
+    var query = "SELECT * FROM Products";
+    connection.query(query, function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        idSearch();
+    }
+    )};
 // Function to take customer order. Customer will be asked for the productID of the product they'd like to purchase. Once entered a second prompt will ask them how many of the itmes they'd like to purchases. 
 
-function placeOrder() 
+function idSearch() 
 {
     //Product ID Prompt
     inquirer
     .prompt({
         name: "product",
         type: "input",
-        message: "Welcome to bAmazon. Please enter the product ID of the product you'd like purchase today",   
+        message: "\nAlright!! Go ahead and Just throw it in the bag." + "\nPlease enter the ID of the product you'd like to purchase",   
         //Maybe add validation//
     })
-    .then(function (idSearch)
+    .then(function (answer)
     {
+
+
+        // var query = "SELECT * FROM Products";
+        // connection.query(query, function(err, result) {
+        // if (err) throw err;
+        // console.log(result);
+        // idSearch();
+
+
         //will reference products table to search for the product based on customers input (using product ID)
-        var query = "SELECT * FROM Products WHERE ?";
-        connection.query(query, {product_id: answer.product_id}, function (err, res) {
+        var product = "SELECT * FROM Products WHERE product_id = ?";
+        connection.query(product, {product_id: answer.product_id}, function (err, res) {
             if (err){
-                console.log("You've selected an invalid ID, please try again");
-                {
+                console.log("You've selected an invalid ID, please try again")
+            {
                 console.log("You've selected " + answer.product_id);
                 }
             }
-            idSearch()
+            placeOrder()
         })
     });
+}
 
+    function placeOrder() 
+{
     //Product Quantity Prompt
     inquirer
     .prompt({
         name: "quantity",
         type: "input",
-        message: "How many units of the product would you like to buy?",
+        message: "\nSweet!!!!" + "\nHow many would you like?",
         //Maybe add validation//
+        validate: function(value) {
+            if (isNaN(value) === false) {
+              return true;
+            }
+            return false;
+        }
     })
     .then(function (checkInventory)
     {
@@ -85,26 +109,38 @@ function placeOrder()
         // var choosenItem = 
         // var query = "Select ";
 
-        //Will check the inventory to see if the the current item is available for purchase. Will include an alert to say 'prodcut unavaialble' if quantity < 0
+        //Will check the inventory to see if the the current item is available for purchase. Will include an alert to say 'product unavaialble' if quantity < 0
 
-        var query = "SELECT product_name FROM Products WHERE quantity > 0";
+        var query = "SELECT product_id * FROM Products WHERE quantity > 0";
         connection.query(query, answer.product_id, {quantity:  answer.quantity}, function (err, res) {
-            if (err){
-                console.log("The amount selected is currently unavailable. Please select again");
-                {
+            if (answer.quantity = 0)
+            {
+                console.log("The amount selected is currently unavailable. Please select again")
+            }
+            else {
                 console.log("You've requested to purchase " + answer.quantity + answer.product_name);
-                }
             };
-            checkInventory();
             fulfillOrder();
         });
     });
-};
-
-//Taking the answer from the selected product and how many of that item would like to be bought. Customer will then be told how their total Price. 
-function fulfillOrder(){
-
-    //update SQL database//
-
-    //show customer total order
 }
+
+    //Taking the answer from the selected product and how many of that item would like to be bought. Customer will then be told how their total Price. 
+    function fulfillOrder()
+{
+    
+    //show customer total order
+
+    var totalPrice = answer.quantity * price
+    console.log ("\n You've selected to purchase" + product_name + "\nat " + price +"a piece");
+
+    console.log ("\n Your total is $" + totalPrice + "\nThank You for Shoppinh with us " + "\nHope to see you again soon!");
+    inventoryUpdate();
+    
+}
+    //update SQL database//
+    function inventoryUpdate() 
+{
+
+}; 
+
