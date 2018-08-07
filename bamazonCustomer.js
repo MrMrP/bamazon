@@ -13,10 +13,31 @@ var connection = mysql.createConnection ({
 connection.connect(function(err) {
     if (err) {
         throw err};
-    showItems();
-    placeOrder();
+        availableItems()
+    // placeOrder();
 });
 
+function availableItems(){
+    //See available Items Prompt
+    inquirer
+    .prompt({
+        name: "availability",
+        type: "confirm",
+        message: "Welcome to bAmazon. Woould you like to see what is currently available?",  
+        deafult: true 
+        //Maybe add validation//
+    })
+    .then(function (userResponse)
+    {
+        if(answer.availability === true){
+            showItems();
+            placeOrder();
+        }
+        else{
+            console.log("Sorry we couldn't be of service. Come again soon!")
+        };
+    });
+}
 // Function to show the total product list to user once application has been run. ** Need to find a way to call on the view created in the schema.sql 
 function showItems(){
     var query = "SELECT * FROM [Current Product List]";
