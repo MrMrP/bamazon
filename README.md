@@ -25,7 +25,7 @@ WELCOME TO bAMAZON!!!
 
 * After selecting an item you will next be asked how many you'd like to purchase. The more the merrier right :bowtie:
 
-![Image of User Inputting How many product to purchase]
+![Image of User Inputting How many product to purchase](/images/UserProductQuantity.jpeg)
 
 * Once confirming your purchase amount you will then receive your total price.
 

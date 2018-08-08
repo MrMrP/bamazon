@@ -76,12 +76,12 @@ function idSearch()
         //will reference products table to search for the product based on customers input (using product ID)
         var product = "SELECT * FROM Products WHERE product_id = ?";
         connection.query(product, {product_id: answer.product_id}, function (err, res) {
-            if (err){
-                console.log("You've selected an invalid ID, please try again")
-            {
-                console.log("You've selected " + answer.product_id);
-                }
-            }
+            // if (err){
+            //     console.log("You've selected an invalid ID, please try again")
+            // {
+            //     console.log("You've selected " + answer.product_id);
+            //     }
+            // }
             placeOrder()
         })
     });
@@ -96,12 +96,12 @@ function idSearch()
         type: "input",
         message: "\nSweet!!!!" + "\nHow many would you like?",
         //Maybe add validation//
-        validate: function(value) {
-            if (isNaN(value) === false) {
-              return true;
-            }
-            return false;
-        }
+        // validate: function(value) {
+        //     if (isNaN(value) === false) {
+        //       return true;
+        //     }
+        //     return false;
+        // }
     })
     .then(function (checkInventory)
     {
