@@ -15,7 +15,7 @@ WELCOME TO bAMAZON!!!
 
 * Upon logging in you will notice that you will automatically see a list of all the current items avaialble and their respective prices.
 
-![Image of Yaktocat](bamazon/images/ProductListView.jpeg)
+![Image of Yaktocat](https://github.com/MrMrP/bamazon/blob/master/bamazon/images/ProductListView.jpeg)
 
 * Take a good look here **notice the product ID** as this will be how you will select your items for purchase.
 
