@@ -42,11 +42,14 @@ function availableItems(){
 }
 // Function to show the total product list to user once application has been run. ** Need to find a way to call on the view created in the schema.sql 
 function showItems(){
-    var query = "SELECT * FROM Products";
-    connection.query(query, function(err, result) {
+    var items = "SELECT * FROM Products";
+    connection.query(items, function(err, result) {
         if (err) throw err;
-        console.log(result);
+        for (var i = 0; i < result.length; i++){
+            console.log("ID:" +result[i].product_id + " || " + " Product:" + result[i].product_name + " || " + " Price: $" +result[i].price);
+        }
         idSearch();
+            connection.end();
     }
     )};
 // Function to take customer order. Customer will be asked for the productID of the product they'd like to purchase. Once entered a second prompt will ask them how many of the itmes they'd like to purchases. 
@@ -63,8 +66,6 @@ function idSearch()
     })
     .then(function (answer)
     {
-
-
         // var query = "SELECT * FROM Products";
         // connection.query(query, function(err, result) {
         // if (err) throw err;
