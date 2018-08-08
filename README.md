@@ -15,9 +15,11 @@ WELCOME TO bAMAZON!!!
 
 * Upon logging in you will notice that you will automatically see a list of all the current items avaialble and their respective prices.
 
-![Image of Yaktocat](https://github.com/MrMrP/bamazon/blob/master/bamazon/images/ProductListView.jpeg)
+![Image of User starting app](../images/UserRunning App.jpeg)
 
 * Take a good look here **notice the product ID** as this will be how you will select your items for purchase.
+
+![Image of User viewing Product List](../images/ProductListView.jpeg)
 
 * After selecting an item you will next be asked how many you'd like to purchase. The more the merrier right :bowtie:
 
