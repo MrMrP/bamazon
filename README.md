@@ -15,7 +15,7 @@ WELCOME TO bAMAZON!!!
 
 * Upon logging in you will notice that you will automatically see a list of all the current items avaialble and their respective prices.
 
-![Image of User starting app](./images/UserRunning App.jpeg)
+![Image of User starting app](/images/UserRunning App.jpeg)
 
 * Take a good look here **notice the product ID** as this will be how you will select your items for purchase.
 
